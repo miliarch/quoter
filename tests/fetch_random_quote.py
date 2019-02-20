@@ -12,4 +12,12 @@ from quoter import quoter
 import json
 
 quote_dict = quoter.select_random_quote()
-print(json.dumps(quote_dict, indent=4))
+print(json.dumps(quote_dict, indent=4), '\n')
+
+quote_str = 'Title: {t}\nURL: {url}\nQuote:\n\t{q}\nCredit:\n\t{c}\n'.format(
+    t=quote_dict['page_title'],
+    url=quote_dict['page_url'],
+    q=quote_dict['quote'],
+    c=quote_dict['credit'])
+
+print(quote_str)
