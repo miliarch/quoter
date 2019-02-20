@@ -66,3 +66,26 @@ class WikiquoteController(ApiActor):
         }
 
         return self.get(self.url, params)
+
+    def get_categories_by_size(self, **kwargs):
+        """ Get list of categories by size (count of category members)
+
+        Param Docs: ?action=help&modules=query%2Ballcategories
+        """
+        params = {
+            'action': 'query',
+            'format': 'json',
+            'list': 'allcategories',
+            'acprop': 'size',
+        }
+
+        valid_params = [
+            'acfrom', 'accontinue', 'acto', 'acprefix',
+            'acdir', 'acmin', 'acmax', 'aclimit'
+        ]
+
+        for p in valid_params:
+            if p in kwargs.keys():
+                params[p] = kwargs[p]
+
+        return self.get(self.url, params)
