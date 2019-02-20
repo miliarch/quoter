@@ -46,3 +46,28 @@ def select_random_quote():
     quote_dict['credit'] = credit.text
 
     return quote_dict
+
+
+def fetch_all_categories(min_members=None, max_members=None):
+    params = {'aclimit': 500, 'accontinue': ''}
+
+    if min_members and max_members:
+        params['acmin'] = min_members
+        params['acmax'] = max_members
+    elif min_members:
+        params['acmin'] = min_members
+    elif max_members:
+        params['acmax'] = max_members
+
+    categories = []
+    done = False
+    while not done:
+        cat_query = _wq_controller.get_categories_by_size(**params)
+        categories.extend(cat_query['query']['allcategories'])
+        if 'continue' in cat_query.keys():
+            print('continue')
+            params['accontinue'] = cat_query['continue']['accontinue']
+        else:
+            done = True
+
+    return categories
