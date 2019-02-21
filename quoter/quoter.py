@@ -1,5 +1,4 @@
 import random
-import json
 from bs4 import BeautifulSoup
 from .api import WikiquoteController
 
